@@ -28,13 +28,17 @@ export default {
     // 希望让异步代码看起来像同步代码---async和await
     async handleLogin () {
       const res = await this.$http.post('login', this.formData)
+      console.log(res)
       // 解构赋值，取出res中数据
       const {
-      // data,
+        data,
         meta: {msg, status}
       } = res.data
       if (status === 200) {
-        // 登陆成功，跳转home
+        // 登陆成功
+        // 保存token
+        localStorage.setItem('token', data.token)
+        // 跳转home
         this.$router.push({name: 'home'})
         // 提示成功
         this.$message.success(msg)
