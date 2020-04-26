@@ -23,20 +23,25 @@ export default {
     }
   },
   methods: {
-    handleLogin () {
-      this.$http.post('login', this.formData).then(res => {
-      // console.log(res)
-        const {
-          // data,
-          meta: {msg, status}
-        } = res.data
-        if (status === 200) {
-          this.$router.push({name: 'home'})
-          this.$message.success(msg)
-        } else {
-          this.$message.error(msg)
-        }
-      })
+    // handleLogin () {
+    //   this.$http.post('login', this.formData).then(res => {
+    // 希望让异步代码看起来像同步代码---async和await
+    async handleLogin () {
+      const res = await this.$http.post('login', this.formData)
+      // 解构赋值，取出res中数据
+      const {
+      // data,
+        meta: {msg, status}
+      } = res.data
+      if (status === 200) {
+        // 登陆成功，跳转home
+        this.$router.push({name: 'home'})
+        // 提示成功
+        this.$message.success(msg)
+      } else {
+      // 提示不成功
+        this.$message.error(msg)
+      }
     }
   }
 }
