@@ -14,7 +14,7 @@
         </el-col>
         <el-col :span="3">
           <div class="grid-content bg-purple">
-            <a class="loginout" href="#">退出</a>
+            <a class="loginout" href="#" @click.prevent="handleSignout()">退出</a>
           </div>
         </el-col>
       </el-row>
@@ -95,12 +95,23 @@ export default{
 // newVue之前触发
   beforeCreate () {
     // 获取token
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     // 若没有token，返回登录界面
     if (!token) {
       this.$router.push({
         name: 'login'
       })
+    }
+    // 若有token，继续渲染组件
+  },
+  methods: {
+    handleSignout () {
+      // 清除token
+      sessionStorage.clear()
+      // 提示退出
+      this.$message.success('退出成功')
+      // 返回登录界面
+      this.$router.push({name: 'login'})
     }
   }
 }
