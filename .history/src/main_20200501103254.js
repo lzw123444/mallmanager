@@ -20,7 +20,7 @@ Vue.filter('fmtdate', (v) => {
   return moment(v).format('YYYY-MM-DD')
 })
 // 设置全局面包屑组件
-Vue.component(myBread.name, myBread)
+Vue.component('myBread.name', myBread)
 new Vue({
   el: '#app',
   router,

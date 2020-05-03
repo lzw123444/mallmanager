@@ -60,7 +60,7 @@
               plain type="success"
               icon="el-icon-check"
               circle
-              @click="showRevisedUserRoleDiog(scope.row)">
+              @click="showEditUserRoleDiog(scope.row)">
               </el-button>
               <el-button
               size="mini"

@@ -4,19 +4,19 @@ import axios from 'axios'
 // 声明一个对象
 const myHttpServer = {}
 // 将axios写为一个vue的插件
-// 添加请求拦截器
-axios.interceptors.request.use(function (config) {
-  if (config.url !== 'login') {
+myHttpServer.install = (vue) => {
+  // 添加请求拦截器
+  axios.interceptors.request.use(function (config) {
     // 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
+    console.log(config)
+    
     const AUTH_TOKEN = sessionStorage.getItem('token')
-    config.headers['Authorization'] = AUTH_TOKEN
-  }
-  return config
+    axios.defaults.headers.common['Authorization'] = AUTH_TOKEN
+    return config
 }, function (error) {
   // 对请求错误做些什么
   return Promise.reject(error)
 })
-myHttpServer.install = (vue) => {
   // 设置接口基准地址
   axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1'
   //  添加实例方法

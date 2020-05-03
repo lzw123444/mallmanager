@@ -8,8 +8,7 @@ import router from './router'
 import '@/assets/css/reset.css'
 import myHttpServe from '@/plugins/http.js'
 import moment from 'moment'
-// myBread指的是组件选项所在的对象
-import myBread from '@/components/custom/mybread.vue'
+
 // 使用vue插件
 Vue.use(ElementUI)
 Vue.use(myHttpServe)
@@ -19,8 +18,6 @@ Vue.config.productionTip = false
 Vue.filter('fmtdate', (v) => {
   return moment(v).format('YYYY-MM-DD')
 })
-// 设置全局面包屑组件
-Vue.component(myBread.name, myBread)
 new Vue({
   el: '#app',
   router,

@@ -13,7 +13,7 @@
            <el-input @clear="resetUsers()" clearable placeholder="请输入内容" v-model="query" class="inputSearch">
              <el-button @click="searchUsers()" slot="append" icon="el-icon-search"></el-button>
            </el-input>
-           <el-button  @click="addUsersDio()" type="primary">添加用户</el-button>
+           <el-button  @click="dialogFormVisibleAdd = true" type="primary">添加用户</el-button>
         </el-col>
       </el-row>
       <!-- 3.表格 -->
@@ -60,7 +60,7 @@
               plain type="success"
               icon="el-icon-check"
               circle
-              @click="showRevisedUserRoleDiog(scope.row)">
+              @click="showEditUserRoleDiog(scope.row)">
               </el-button>
               <el-button
               size="mini"
@@ -246,11 +246,6 @@ export default {
           })
         })
     },
-    // 显示添加用户对话框
-    addUsersDio () {
-      this.dialogFormVisibleAdd = true
-      this.form = {}
-    },
     // 添加用户方法
     async addUsers () {
       const res = await this.$http.post('users', this.form)
@@ -288,6 +283,9 @@ export default {
     },
     // 获取用户列表
     async getUserList () {
+      // 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
+      const AUTH_TOKEN = sessionStorage.getItem('token')
+      this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN
       const res = await this.$http.get(`users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
       // 解构赋值，获取数据
       const {data: {users, total}, meta: {status}} = res.data

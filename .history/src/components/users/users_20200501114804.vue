@@ -60,7 +60,7 @@
               plain type="success"
               icon="el-icon-check"
               circle
-              @click="showRevisedUserRoleDiog(scope.row)">
+              @click="showEditUserRoleDiog(scope.row)">
               </el-button>
               <el-button
               size="mini"
@@ -288,6 +288,9 @@ export default {
     },
     // 获取用户列表
     async getUserList () {
+      // 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
+      const AUTH_TOKEN = sessionStorage.getItem('token')
+      this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN
       const res = await this.$http.get(`users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
       // 解构赋值，获取数据
       const {data: {users, total}, meta: {status}} = res.data

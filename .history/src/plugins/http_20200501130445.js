@@ -6,11 +6,8 @@ const myHttpServer = {}
 // 将axios写为一个vue的插件
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
-  if (config.url !== 'login') {
-    // 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
-    const AUTH_TOKEN = sessionStorage.getItem('token')
-    config.headers['Authorization'] = AUTH_TOKEN
-  }
+  // 在发送请求之前做些什么
+  // console.log(config)
   return config
 }, function (error) {
   // 对请求错误做些什么

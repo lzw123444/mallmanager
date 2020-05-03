@@ -11,6 +11,7 @@ axios.interceptors.request.use(function (config) {
     const AUTH_TOKEN = sessionStorage.getItem('token')
     config.headers['Authorization'] = AUTH_TOKEN
   }
+  console.log(config)
   return config
 }, function (error) {
   // 对请求错误做些什么
