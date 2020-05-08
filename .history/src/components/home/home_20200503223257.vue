@@ -22,18 +22,14 @@
     <el-container>
       <el-aside class="aside" width="200px">
         <el-menu :unique-opened="true" :router="true">
-          <el-submenu
-          :index="''+item1.order"
-          v-for="(item1, i) in menus" :key="i">
+          <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-s-order"></i>
-              <span>{{item1.authName}}</span>
+              <span>用户管理</span>
             </template>
-            <el-menu-item
-            :index="item2.path"
-            v-for="(item2, i) in item1.children" :key="i">
+            <el-menu-item index="users">
               <i class="el-icon-s-custom"></i>
-              <span>{{item2.authName}}</span>
+              <span>用户列表</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>
@@ -47,31 +43,25 @@
 </template>
 <script>
 export default{
-  data () {
-    return {
-      menus: []
-    }
-  },
   created () {
     this.getMenus()
   },
   // newVue之前触发
   beforeCreate () {
-    // // 获取token
-    // const token = sessionStorage.getItem('token')
-    // // 若没有token，返回登录界面
-    // if (!token) {
-    //   this.$router.push({
-    //     name: 'login'
-    //   })
-    // }
-    // // 若有token，继续渲染组件
+    // 获取token
+    const token = sessionStorage.getItem('token')
+    // 若没有token，返回登录界面
+    if (!token) {
+      this.$router.push({
+        name: 'login'
+      })
+    }
+    // 若有token，继续渲染组件
   },
   methods: {
     async getMenus () {
       const res = await this.$http.get('menus')
       console.log(res)
-      this.menus = res.data.data
     },
     handleSignout () {
       // 清除token

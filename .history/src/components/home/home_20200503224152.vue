@@ -27,7 +27,7 @@
           v-for="(item1, i) in menus" :key="i">
             <template slot="title">
               <i class="el-icon-s-order"></i>
-              <span>{{item1.authName}}</span>
+              <span>{{item1.authName}}}</span>
             </template>
             <el-menu-item
             :index="item2.path"
@@ -57,15 +57,15 @@ export default{
   },
   // newVue之前触发
   beforeCreate () {
-    // // 获取token
-    // const token = sessionStorage.getItem('token')
-    // // 若没有token，返回登录界面
-    // if (!token) {
-    //   this.$router.push({
-    //     name: 'login'
-    //   })
-    // }
-    // // 若有token，继续渲染组件
+    // 获取token
+    const token = sessionStorage.getItem('token')
+    // 若没有token，返回登录界面
+    if (!token) {
+      this.$router.push({
+        name: 'login'
+      })
+    }
+    // 若有token，继续渲染组件
   },
   methods: {
     async getMenus () {
